@@ -1,5 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
-
 const API_KEY = 'a46fbbfca42a2fc6db5508cde8e26d9a';
 const API_BASE = 'https://api.themoviedb.org/3/';
 
@@ -64,22 +62,24 @@ export const getHomeList = async() => {
             items: await basicFetch(`discover/movie?with_genres=99?&language=pt-BR&api_key=${API_KEY}`)
         },
     ];
-   
-    const getMovieInfo = async (movieId, type) => {
-        let info = {};
-        
-        if(movieId) {
-            switch(type) {
-                case 'movie':
-                    info = await basicFetch(`movie/${movieId}?language=pt-BRapi_key=${API_KEY}`);
+};
+export const getMovieInfo = async (movieId, type) => {
+    let info = {};
+    
+    if (movieId) {
+        switch (type) {
+            case 'movie':
+                info = await basicFetch(`movie/${movieId}?language=pt-BR&api_key=${API_KEY}`);
                 break;
-                case 'tv':
-                    info = await basicFetch(`tv/${movieId}?language=pt-BRapi_key=${API_KEY}`);
+            case 'tv':
+                info = await basicFetch(`tv/${movieId}?language=pt-BR&api_key=${API_KEY}`);
                 break;
-            }
+            default:
+                throw new Error('Tipo de mídia inválido. Deve ser "movie" ou "tv".');
         }
     }
-    
-}
+
+    return info;
+};
 
 
